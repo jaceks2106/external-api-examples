@@ -7,28 +7,26 @@ using Microsoft.Rest;
 
 namespace ExternalApiExamples
 {
-    public class EmployeeExample
+    public class SchoolHoursPlansExample
     {
         public async Task Execute(ITokenProvider tokenProvider)
         {
-            Console.WriteLine("Executing employee example");
+            Console.WriteLine("Executing school hours plans example");
 
             using var schoolAdministrationClient = new SchoolAdministrationHost(new TokenCredentials(tokenProvider));
 
-            var result = await schoolAdministrationClient.EmployeesExternal.GetWithHttpMessagesAsync(
-                employmentStartDateFrom: DateTime.Now.AddYears(-1),
-                employmentStartDateTo: DateTime.Now,
+            var result = await schoolAdministrationClient.SchoolHoursPlansExternal.GetWithHttpMessagesAsync(
                 schoolCode: Configuration.TestSchoolCode,
                 pageNumber: 1,
                 pageSize: 10,
                 inlineCount: true,
                 customHeaders: new Dictionary<string, List<string>>
                 {
-                    { "X-Host-To-Host", new List<string>{"true"} } 
+                    { "X-Host-To-Host", new List<string>{"true"} }
                 });
-                
-            Console.WriteLine($"Got {result.Body.TotalItems} employees from API");
-                
+
+            Console.WriteLine($"Got {result.Body.TotalItems} plans from API");
+
             ConsoleTable
                 .From(result.Body.Items)
                 .Write();

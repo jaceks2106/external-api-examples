@@ -1,22 +1,22 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConsoleTables;
-using Kmd.Studica.Students.Client;
+using Kmd.Studica.Programmes.Client;
 using Microsoft.Rest;
 
 namespace ExternalApiExamples
 {
-    public class StudentsExample
+    public class SubjectCoursesExample
     {
         public async Task Execute(ITokenProvider tokenProvider)
         {
-            Console.WriteLine("Executing student example");
+            Console.WriteLine("Executing subject courses example");
 
-            using var studentsClient = new StudentsHost(new TokenCredentials(tokenProvider));
-            var result = await studentsClient.StudentsExternal.GetWithHttpMessagesAsync(
-                studyStartDateFrom: DateTime.Now.AddMonths(-12),
-                studyStartDateTo: DateTime.Now.AddMonths(6),
+            using var programmesClient = new ProgrammesHost(new TokenCredentials(tokenProvider));
+            var result = await programmesClient.SubjectCoursesExternal.GetWithHttpMessagesAsync(
+                startDateFrom: DateTime.Now.AddMonths(-12),
+                startDateTo: DateTime.Now.AddMonths(6),
                 schoolCode: Configuration.TestSchoolCode,
                 pageNumber: 1,
                 pageSize: 10,
@@ -26,7 +26,7 @@ namespace ExternalApiExamples
                     { "X-Host-To-Host", new List<string>{"true"} }
                 });
 
-            Console.WriteLine($"Got {result.Body.TotalItems} students from API");
+            Console.WriteLine($"Got {result.Body.TotalItems} subject courses from API");
 
             ConsoleTable
                 .From(result.Body.Items)

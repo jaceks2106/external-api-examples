@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Studica.Employees.Client
+namespace Kmd.Studica.SchoolAdministration.Client
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
@@ -38,9 +38,24 @@ namespace Kmd.Studica.Employees.Client
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
-        /// Gets the IEmployees.
+        /// Gets the IEmployeesExternal.
         /// </summary>
-        public virtual IEmployees Employees { get; private set; }
+        public virtual IEmployeesExternal EmployeesExternal { get; private set; }
+
+        /// <summary>
+        /// Gets the IRoomsExternal.
+        /// </summary>
+        public virtual IRoomsExternal RoomsExternal { get; private set; }
+
+        /// <summary>
+        /// Gets the ISchoolHourEntriesExternal.
+        /// </summary>
+        public virtual ISchoolHourEntriesExternal SchoolHourEntriesExternal { get; private set; }
+
+        /// <summary>
+        /// Gets the ISchoolHoursPlansExternal.
+        /// </summary>
+        public virtual ISchoolHoursPlansExternal SchoolHoursPlansExternal { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the SchoolAdministrationHost class.
@@ -283,7 +298,10 @@ namespace Kmd.Studica.Employees.Client
         /// </summary>
         private void Initialize()
         {
-            Employees = new Employees(this);
+            EmployeesExternal = new EmployeesExternal(this);
+            RoomsExternal = new RoomsExternal(this);
+            SchoolHourEntriesExternal = new SchoolHourEntriesExternal(this);
+            SchoolHoursPlansExternal = new SchoolHoursPlansExternal(this);
             BaseUri = new System.Uri("http://localhost:5002");
             SerializationSettings = new JsonSerializerSettings
             {

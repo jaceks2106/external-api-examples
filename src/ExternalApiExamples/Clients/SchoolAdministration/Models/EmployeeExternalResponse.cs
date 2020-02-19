@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Studica.Employees.Client.Models
+namespace Kmd.Studica.SchoolAdministration.Client.Models
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
@@ -12,36 +12,39 @@ namespace Kmd.Studica.Employees.Client.Models
     using System.Linq;
 
     /// <summary>
-    /// EmployeeResponse
+    /// EmployeeExternalResponse
     /// </summary>
-    public partial class EmployeeResponse
+    /// <remarks>
+    /// Model of the employee.
+    /// </remarks>
+    public partial class EmployeeExternalResponse
     {
         /// <summary>
-        /// Initializes a new instance of the EmployeeResponse class.
+        /// Initializes a new instance of the EmployeeExternalResponse class.
         /// </summary>
-        public EmployeeResponse()
+        public EmployeeExternalResponse()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the EmployeeResponse class.
+        /// Initializes a new instance of the EmployeeExternalResponse class.
         /// </summary>
         /// <param name="id">Gets employee identifier in Studica.</param>
-        /// <param name="lmsIndicator">Gets Learning Managment System
-        /// indicator.</param>
         /// <param name="civilRegistrationNumber">Gets employee civil
         /// registration number.</param>
+        /// <param name="lmsIndicator">Gets Learning Management System
+        /// indicator.</param>
         /// <param name="givenName">Gets employee given name.</param>
         /// <param name="surname">Gets employee surname.</param>
         /// <param name="email">Gets employee e-mail address.</param>
-        /// <param name="uniloginUsername">Gets employee Unilogin
+        /// <param name="uniLoginUsername">Gets employee Unilogin
         /// username.</param>
         /// <param name="adUserName">Gets employee Active Directory
         /// username.</param>
         /// <param name="employmentResignationDate">Gets employee resignation
         /// date.</param>
-        public EmployeeResponse(System.Guid id, bool lmsIndicator, string civilRegistrationNumber = default(string), string givenName = default(string), string surname = default(string), string email = default(string), string uniloginUsername = default(string), string adUserName = default(string), System.DateTime? employmentResignationDate = default(System.DateTime?))
+        public EmployeeExternalResponse(System.Guid id, string civilRegistrationNumber, bool lmsIndicator, string givenName, string surname, string email, string uniLoginUsername = default(string), string adUserName = default(string), System.DateTime? employmentResignationDate = default(System.DateTime?))
         {
             Id = id;
             CivilRegistrationNumber = civilRegistrationNumber;
@@ -49,7 +52,7 @@ namespace Kmd.Studica.Employees.Client.Models
             GivenName = givenName;
             Surname = surname;
             Email = email;
-            UniloginUsername = uniloginUsername;
+            UniLoginUsername = uniLoginUsername;
             AdUserName = adUserName;
             EmploymentResignationDate = employmentResignationDate;
             CustomInit();
@@ -73,7 +76,7 @@ namespace Kmd.Studica.Employees.Client.Models
         public string CivilRegistrationNumber { get; set; }
 
         /// <summary>
-        /// Gets Learning Managment System indicator.
+        /// Gets Learning Management System indicator.
         /// </summary>
         [JsonProperty(PropertyName = "lmsIndicator")]
         public bool LmsIndicator { get; set; }
@@ -99,8 +102,8 @@ namespace Kmd.Studica.Employees.Client.Models
         /// <summary>
         /// Gets employee Unilogin username.
         /// </summary>
-        [JsonProperty(PropertyName = "uniloginUsername")]
-        public string UniloginUsername { get; set; }
+        [JsonProperty(PropertyName = "uniLoginUsername")]
+        public string UniLoginUsername { get; set; }
 
         /// <summary>
         /// Gets employee Active Directory username.
@@ -123,7 +126,22 @@ namespace Kmd.Studica.Employees.Client.Models
         /// </exception>
         public virtual void Validate()
         {
-            //Nothing to validate
+            if (CivilRegistrationNumber == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "CivilRegistrationNumber");
+            }
+            if (GivenName == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "GivenName");
+            }
+            if (Surname == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Surname");
+            }
+            if (Email == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "Email");
+            }
         }
     }
 }

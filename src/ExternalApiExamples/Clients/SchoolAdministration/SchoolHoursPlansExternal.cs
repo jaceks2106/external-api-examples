@@ -4,10 +4,9 @@
 // regenerated.
 // </auto-generated>
 
-namespace Kmd.Studica.Employees.Client
+namespace Kmd.Studica.SchoolAdministration.Client
 {
     using Microsoft.Rest;
-    using Microsoft.Rest.Serialization;
     using Models;
     using Newtonsoft.Json;
     using System.Collections;
@@ -20,12 +19,12 @@ namespace Kmd.Studica.Employees.Client
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Employees operations.
+    /// SchoolHoursPlansExternal operations.
     /// </summary>
-    public partial class Employees : IServiceOperations<SchoolAdministrationHost>, IEmployees
+    public partial class SchoolHoursPlansExternal : IServiceOperations<SchoolAdministrationHost>, ISchoolHoursPlansExternal
     {
         /// <summary>
-        /// Initializes a new instance of the Employees class.
+        /// Initializes a new instance of the SchoolHoursPlansExternal class.
         /// </summary>
         /// <param name='client'>
         /// Reference to the service client.
@@ -33,7 +32,7 @@ namespace Kmd.Studica.Employees.Client
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        public Employees(SchoolAdministrationHost client)
+        public SchoolHoursPlansExternal(SchoolAdministrationHost client)
         {
             if (client == null)
             {
@@ -47,18 +46,17 @@ namespace Kmd.Studica.Employees.Client
         /// </summary>
         public SchoolAdministrationHost Client { get; private set; }
 
+        /// <param name='schoolCode'>
+        /// The school code for which to get data.
+        /// </param>
         /// <param name='pageNumber'>
+        /// The number of the page to return (1 is the first page).
         /// </param>
         /// <param name='pageSize'>
+        /// Number of objects per page.
         /// </param>
         /// <param name='inlineCount'>
-        /// </param>
-        /// <param name='employmentStartDateFrom'>
-        /// </param>
-        /// <param name='employmentStartDateTo'>
-        /// </param>
-        /// <param name='institutionNumber'>
-        /// Institution number the employee belongs to.
+        /// A flag indicating if total number of items should be included.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -72,11 +70,32 @@ namespace Kmd.Studica.Employees.Client
         /// <exception cref="SerializationException">
         /// Thrown when unable to deserialize the response
         /// </exception>
+        /// <exception cref="ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        /// <exception cref="System.ArgumentNullException">
+        /// Thrown when a required parameter is null
+        /// </exception>
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<PagedResponse1>> GetWithHttpMessagesAsync(int pageNumber, int pageSize, bool inlineCount, System.DateTime employmentStartDateFrom, System.DateTime employmentStartDateTo, string institutionNumber = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<PagedResponse1SchoolHoursPlanExternalResponse>> GetWithHttpMessagesAsync(string schoolCode, int pageNumber, int pageSize, bool inlineCount, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (schoolCode == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "schoolCode");
+            }
+            if (schoolCode != null)
+            {
+                if (schoolCode.Length > 6)
+                {
+                    throw new ValidationException(ValidationRules.MaxLength, "schoolCode", 6);
+                }
+                if (schoolCode.Length < 6)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "schoolCode", 6);
+                }
+            }
             if (pageNumber > 2147483647)
             {
                 throw new ValidationException(ValidationRules.InclusiveMaximum, "pageNumber", 2147483647);
@@ -100,28 +119,24 @@ namespace Kmd.Studica.Employees.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("institutionNumber", institutionNumber);
+                tracingParameters.Add("schoolCode", schoolCode);
                 tracingParameters.Add("pageNumber", pageNumber);
                 tracingParameters.Add("pageSize", pageSize);
                 tracingParameters.Add("inlineCount", inlineCount);
-                tracingParameters.Add("employmentStartDateFrom", employmentStartDateFrom);
-                tracingParameters.Add("employmentStartDateTo", employmentStartDateTo);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "Get", tracingParameters);
             }
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "Employees").ToString();
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "SchoolHoursPlansExternal").ToString();
             List<string> _queryParameters = new List<string>();
-            if (institutionNumber != null)
+            if (schoolCode != null)
             {
-                _queryParameters.Add(string.Format("InstitutionNumber={0}", System.Uri.EscapeDataString(institutionNumber)));
+                _queryParameters.Add(string.Format("SchoolCode={0}", System.Uri.EscapeDataString(schoolCode)));
             }
-            _queryParameters.Add(string.Format("PageNumber={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(pageNumber, Client.SerializationSettings).Trim('"'))));
-            _queryParameters.Add(string.Format("PageSize={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(pageSize, Client.SerializationSettings).Trim('"'))));
-            _queryParameters.Add(string.Format("InlineCount={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(inlineCount, Client.SerializationSettings).Trim('"'))));
-            _queryParameters.Add(string.Format("EmploymentStartDateFrom={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(employmentStartDateFrom, new DateJsonConverter()).Trim('"'))));
-            _queryParameters.Add(string.Format("EmploymentStartDateTo={0}", System.Uri.EscapeDataString(SafeJsonConvert.SerializeObject(employmentStartDateTo, new DateJsonConverter()).Trim('"'))));
+            _queryParameters.Add(string.Format("PageNumber={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(pageNumber, Client.SerializationSettings).Trim('"'))));
+            _queryParameters.Add(string.Format("PageSize={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(pageSize, Client.SerializationSettings).Trim('"'))));
+            _queryParameters.Add(string.Format("InlineCount={0}", System.Uri.EscapeDataString(Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(inlineCount, Client.SerializationSettings).Trim('"'))));
             if (_queryParameters.Count > 0)
             {
                 _url += "?" + string.Join("&", _queryParameters);
@@ -191,7 +206,7 @@ namespace Kmd.Studica.Employees.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<PagedResponse1>();
+            var _result = new HttpOperationResponse<PagedResponse1SchoolHoursPlanExternalResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -200,7 +215,7 @@ namespace Kmd.Studica.Employees.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<PagedResponse1>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<PagedResponse1SchoolHoursPlanExternalResponse>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
